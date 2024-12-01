@@ -17,3 +17,19 @@ cargo test
 cargo build
 
 ```
+
+
+## coverage 
+
+
+install 
+
+```bash
+cargo install cargo-llvm-cov
+```
+
+run this: 
+
+```bash 
+cargo llvm-cov run
+```
