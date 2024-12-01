@@ -42,3 +42,30 @@ fn part2(input: &str) -> i32 {
     let result = l_values.iter().zip(similarity_scores).map(|(&l, s)| l * s).sum();
     result
 }
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn pt1_example() {
+        assert_eq!(part1(include_str!("../data/pt1_example.txt")), 11);
+    }
+
+
+    #[test]
+    fn pt1_input() {
+        assert_eq!(part1(include_str!("../data/pt1_input.txt")), 1765812);
+    }
+
+    #[test]
+    fn pt2_example() {
+        assert_eq!(part2(include_str!("../data/pt2_example.txt")), 31);
+    }
+
+    #[test]
+    fn pt2_input() {
+        assert_eq!(part2(include_str!("../data/pt2_input.txt")), 20520794);
+    }
+}
