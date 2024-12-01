@@ -1,0 +1,59 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Check out the code from the repository
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    # Install Rust using rustup
+    - name: Set up Rust
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: stable # Specify the Rust toolchain, e.g., stable, nightly, beta
+        override: true
+
+    # Cache Cargo dependencies to speed up builds
+    - name: Cache Cargo
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/registry
+          ~/.cargo/git
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-
+
+    # Build the project
+    - name: Build
+      run: cargo build --verbose
+
+    # Run tests
+    - name: Run tests
+      run: cargo test --verbose
+
+    # Install cargo-llvm-cov
+    - name: Install llvm-cov
+      run: cargo install cargo-llvm-cov
+
+    # Generate coverage
+    - name: Generate coverage report
+      run: cargo llvm-cov --lcov --output-path lcov.info
+
+    # Upload coverage report to Codecov
+    - name: Upload to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: lcov.info
+        flags: unittests

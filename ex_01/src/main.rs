@@ -2,7 +2,7 @@
 
 fn main() {
     println!("Result pt1 example: {}", part1(include_str!("../data/pt1_example.txt")));
-    println!("Result pt1: {}", part1    (include_str!("../data/pt1_input.txt")));
+    println!("Result pt1: {}", part1(include_str!("../data/pt1_input.txt")));
     println!("Result pt2 example: {}", part2(include_str!("../data/pt2_example.txt")));
     println!("Result pt2: {}", part2(include_str!("../data/pt2_input.txt")));
 }
